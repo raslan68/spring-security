@@ -49,4 +49,6 @@ public class SignUpRequest {
 
     private LocalDate birthDate;
 
+    private String roleName;
+
 }

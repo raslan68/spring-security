@@ -4,6 +4,8 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 
 import javax.persistence.*;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * @author Ramazan Aslan
@@ -21,5 +23,8 @@ public class Role extends BaseEntity {
 
     @Column(name = "name", nullable = false, length = 50, unique = true)
     private String name;
+
+    @OneToMany(mappedBy = "role")
+    private Set<User> users = new HashSet<>();
 
 }
