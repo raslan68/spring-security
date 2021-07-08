@@ -1,7 +1,6 @@
-package com.ramiaslan.security.configuration.security;
+package com.ramiaslan.security.common.security;
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.boot.actuate.endpoint.SecurityContext;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.filter.OncePerRequestFilter;

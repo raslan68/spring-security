@@ -1,4 +1,4 @@
-package com.ramiaslan.security.configuration.security;
+package com.ramiaslan.security.common.security;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.config.annotation.SecurityConfigurerAdapter;

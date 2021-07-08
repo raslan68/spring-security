@@ -1,7 +1,6 @@
-package com.ramiaslan.security.configuration.security;
+package com.ramiaslan.security.common.security;
 
 import com.ramiaslan.security.entity.User;
-import com.ramiaslan.security.exception.CustomException;
 import com.ramiaslan.security.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetails;

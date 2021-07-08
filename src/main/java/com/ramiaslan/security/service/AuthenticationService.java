@@ -1,6 +1,6 @@
 package com.ramiaslan.security.service;
 
-import com.ramiaslan.security.configuration.security.JwtTokenProvider;
+import com.ramiaslan.security.common.security.JwtTokenProvider;
 import com.ramiaslan.security.controller.request.LoginRequest;
 import com.ramiaslan.security.controller.request.SignUpRequest;
 import com.ramiaslan.security.controller.response.LoginResponse;
@@ -19,6 +19,7 @@ import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 
+
 /**
  * @author Ramazan Aslan
  * @since 1.0
@@ -34,6 +35,7 @@ public class AuthenticationService {
     private final AuthenticationManager authenticationManager;
     private final PasswordEncoder passwordEncoder;
 
+    @Transactional
     public LoginResponse login(LoginRequest loginRequest) {
         String username = loginRequest.getUsername();
         String password = loginRequest.getPassword();
@@ -55,12 +57,24 @@ public class AuthenticationService {
     @Transactional
     public void signUp(SignUpRequest signUpRequest) {
         Role role = findRoleByRoleName(signUpRequest.getRoleName());
+        String email = signUpRequest.getEmail();
+        existUserByEmail(email);
+        String phone = signUpRequest.getPhone();
+        existUserPhone(phone);
+        String identification = signUpRequest.getIdentification();
+        existUserByIdentification(identification);
 
         User user = new User();
         user.setUsername(signUpRequest.getUsername());
         user.setPassword(encode(signUpRequest.getPassword()));
+        user.setEmail(email);
+        user.setPhone(phone);
+        user.setIdentification(identification);
+        user.setFirstName(signUpRequest.getFirstName());
+        user.setLastName(signUpRequest.getLastName());
+        user.setBirthDate(signUpRequest.getBirthDate());
         user.setRole(role);
-
+        user.setStatus(true);
 
         userRepository.save(user);
     }
@@ -72,6 +86,24 @@ public class AuthenticationService {
 
     private String encode(String password) {
         return passwordEncoder.encode(password);
+    }
+
+    private void existUserByEmail(String userEmail) {
+        if (userRepository.existsByEmail(userEmail)) {
+            throw new CustomException("email must be unique");
+        }
+    }
+
+    private void existUserPhone(String phone) {
+        if (userRepository.existsByPhone(phone)) {
+            throw new CustomException("phone must be unique");
+        }
+    }
+
+    private void existUserByIdentification(String userIdentification) {
+        if (userRepository.existsByIdentification(userIdentification)) {
+            throw new CustomException("identification must be unique");
+        }
     }
 
 }

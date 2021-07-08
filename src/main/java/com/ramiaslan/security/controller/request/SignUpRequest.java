@@ -1,5 +1,7 @@
 package com.ramiaslan.security.controller.request;
 
+import com.ramiaslan.security.common.annotation.FieldMatch;
+import com.ramiaslan.security.common.annotation.UniqueUsername;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -13,8 +15,10 @@ import java.time.LocalDate;
  */
 @Getter
 @Setter
+@FieldMatch(first = "password", second = "confirmPassword", message = "The password fields must match")
 public class SignUpRequest {
 
+    @UniqueUsername
     @NotBlank(message = "User name must not be null or empty")
     @Size(min = 3, max = 50, message = "User name size must be between {min} and {max} ")
     private String username;
@@ -49,6 +53,7 @@ public class SignUpRequest {
 
     private LocalDate birthDate;
 
+    @NotBlank(message = "Role name must not be null or empty")
     private String roleName;
 
 }

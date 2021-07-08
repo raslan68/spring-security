@@ -1,4 +1,4 @@
-package com.ramiaslan.security.configuration.security;
+package com.ramiaslan.security.common.security;
 
 import com.ramiaslan.security.entity.Role;
 import com.ramiaslan.security.exception.CustomException;

@@ -1,4 +1,4 @@
-package com.ramiaslan.security.configuration;
+package com.ramiaslan.security.common;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
