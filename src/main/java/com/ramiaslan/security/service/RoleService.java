@@ -31,7 +31,7 @@ public class RoleService {
 
     public void update(RoleUpdateRequest roleUpdateRequest) {
         Role role = getById(roleUpdateRequest.getId());
-        existByName(role.getName());
+        existByName(roleUpdateRequest.getName());
 
         role.setStatus(roleUpdateRequest.getStatus());
         role.setName(roleUpdateRequest.getName());
