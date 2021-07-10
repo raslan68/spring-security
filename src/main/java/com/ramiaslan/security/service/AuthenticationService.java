@@ -11,6 +11,7 @@ import com.ramiaslan.security.repository.RoleRepository;
 import com.ramiaslan.security.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.AuthenticationException;
@@ -41,7 +42,7 @@ public class AuthenticationService {
         String password = loginRequest.getPassword();
         try {
             User user = userRepository.findByUsername(username)
-                    .orElseThrow(() -> new CustomException("User not found"));
+                    .orElseThrow(() -> new CustomException("User not found", HttpStatus.BAD_REQUEST));
             authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(username, password));
             String token = jwtTokenProvider.createToken(username, user.getRole());
 
@@ -50,7 +51,7 @@ public class AuthenticationService {
             return loginResponse;
         } catch (AuthenticationException authenticationException) {
             log.info(authenticationException.getMessage());
-            throw new CustomException("Username or password not valid");
+            throw new CustomException("Username or password not valid",HttpStatus.BAD_REQUEST);
         }
     }
 
@@ -75,7 +76,7 @@ public class AuthenticationService {
 
     private Role findRoleByRoleName(String role) {
         return roleRepository.findByName(role)
-                .orElseThrow(() -> new CustomException("Role not found!"));
+                .orElseThrow(() -> new CustomException("role not found", HttpStatus.BAD_REQUEST));
     }
 
     private String encode(String password) {

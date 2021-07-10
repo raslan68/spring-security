@@ -7,6 +7,7 @@ import com.ramiaslan.security.entity.Role;
 import com.ramiaslan.security.exception.CustomException;
 import com.ramiaslan.security.repository.RoleRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -56,14 +57,14 @@ public class RoleService {
 
     private void existByName(String name) {
         if (roleRepository.existsByName(name)) {
-            throw new CustomException("role name must be unique");
+            throw new CustomException("role name must be unique", HttpStatus.BAD_REQUEST);
         }
     }
 
     private Role getById(Integer id) {
         Optional<Role> role = roleRepository.findById(id);
         if (role.isEmpty()) {
-            throw new CustomException("role is not found ");
+            throw new CustomException("role is not found ", HttpStatus.BAD_REQUEST);
         }
         return role.get();
     }

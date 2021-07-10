@@ -6,6 +6,7 @@ import com.ramiaslan.security.controller.response.GenericResponse;
 import com.ramiaslan.security.controller.response.LoginResponse;
 import com.ramiaslan.security.service.AuthenticationService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -34,7 +35,9 @@ public class AuthController {
     @PostMapping("/sign-up")
     public ResponseEntity<?> signUp(@Valid @RequestBody SignUpRequest signUpRequest) {
         authenticationService.signUp(signUpRequest);
-        return ResponseEntity.ok(new GenericResponse(200, "sign up successfully."));
+        return ResponseEntity
+                .status(HttpStatus.CREATED)
+                .body(new GenericResponse(201, "sign up successfully."));
     }
 
 }

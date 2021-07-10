@@ -6,6 +6,7 @@ import com.ramiaslan.security.controller.response.GenericResponse;
 import com.ramiaslan.security.controller.response.RoleResponse;
 import com.ramiaslan.security.service.RoleService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
@@ -28,7 +29,9 @@ public class RoleController {
     @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<?> create(@Valid @RequestBody RoleCreateRequest roleCreateRequest) {
         roleService.create(roleCreateRequest);
-        return ResponseEntity.ok(new GenericResponse(200, "role successfully created."));
+        return ResponseEntity
+                .status(HttpStatus.CREATED)
+                .body(new GenericResponse(201, "role successfully created."));
     }
 
     @PutMapping
