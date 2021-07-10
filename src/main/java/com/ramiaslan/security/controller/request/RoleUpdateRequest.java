@@ -8,15 +8,14 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Positive;
 import javax.validation.constraints.Size;
 
-/**
- * @author Ramazan Aslan
- * @since 1.0
- */
 @Getter
 @Setter
-public class RoleCreateRequest {
+public class RoleUpdateRequest {
 
-    @Positive
+    @Positive(message = "id must be positive")
+    @NotNull(message = "id must not be null")
+    private Integer id;
+
     @NotNull(message = "Status must not be null")
     private Boolean status;
 
@@ -25,5 +24,3 @@ public class RoleCreateRequest {
     private String name;
 
 }
-
-

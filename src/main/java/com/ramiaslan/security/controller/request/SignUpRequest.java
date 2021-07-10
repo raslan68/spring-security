@@ -1,7 +1,6 @@
 package com.ramiaslan.security.controller.request;
 
-import com.ramiaslan.security.common.annotation.FieldMatch;
-import com.ramiaslan.security.common.annotation.UniqueUsername;
+import com.ramiaslan.security.common.annotation.*;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -31,14 +30,17 @@ public class SignUpRequest {
     @Size(min = 4, max = 32, message = "Confirm password size must be between {min} and {max} ")
     private String confirmPassword;
 
+    @UniqueEmail
     @NotBlank(message = "Email must not be null or empty")
     @Size(min = 4, max = 100, message = "Email size must be between {min} and {max} ")
     private String email;
 
+    @UniquePhone
     @NotBlank(message = "Phone must not be null or empty")
     @Size(min = 4, max = 25, message = "Phone size must be between {min} and {max} ")
     private String phone;
 
+    @UniqueIdentification
     @NotBlank(message = "Identification must not be null or empty")
     @Size(min = 4, max = 25, message = "Identification size must be between {min} and {max} ")
     private String identification;
